@@ -37,10 +37,14 @@ class _SimplePageState extends State<SimplePage> {
 
   // new data
   Future<void> getMoreItems(int size) async {
-    Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
 
     List<String> newData =
         List.generate(5, (index) => "Data - ${size + index + 1}");
+
+    setState(() {
+      _items.addAll(newData);
+    });
   }
 
   @override
@@ -70,7 +74,7 @@ class _SimplePageState extends State<SimplePage> {
                     ),
                   );
                 } else {
-                  return _items.length <= maxContentCount
+                  return _items.length < maxContentCount
                       ? CircularProgressIndicator()
                       : SizedBox();
                 }
